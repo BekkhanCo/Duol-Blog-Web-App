@@ -27,7 +27,7 @@ public class BlogController {
   public String displayAllBLogs(Model model) {
     Collection<Blog> blogs = service.getAll();
     model.addAttribute("blogs", blogs);
-    return "home";
+    return "index";
   }
 
   @GetMapping("/blog/{id}")
