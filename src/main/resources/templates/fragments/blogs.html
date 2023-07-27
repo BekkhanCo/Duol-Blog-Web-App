@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="blogs(blogs)">
+    <div class="container-fluid">
+
+        <div class="row tm-row">
+            <div class="col-12 col-md-6" th:each="blog, iterStat : ${blogs}">
+                <!--            <div class="blog" th:each="blog : ${blogs}">-->
+                <div class="row">
+                    <article class="col-12 tm-post">
+                        <hr class="tm-hr-primary">
+                        <a th:href="@{'/blog/' + ${blog.id}}" class="effect-lily tm-post-link tm-pt-60">
+                            <div class=" tm-post-link-inner">
+                                <img th:src="@{/img/default.png}" alt="Image" class="img-fluid">
+                            </div>
+                            <span th:classappend="${blog.checked ? 'posit4ion-absolute tm-new-badge' : 'posit4ion-absolute'}"
+                                  th:text="${blog.checked ? 'Checked': 'Unchecked'}"> Checked or not</span>
+                            <h2 class="tm-pt-30 tm-color-primary tm-post-title" th:text="${blog.title}"> Title</h2>
+                        </a>
+                        <div class="d-flex justify-content-between tm-pt-45">
+                                                    <span class="tm-color-primary"
+                                                          th:text="'Topic: '+${blog.topic.name}">Topic</span>
+                            <span class="tm-color-primary"
+                                  th:text="${#temporals.format(blog.createdDate, 'yyyy MMMM dd')}">Creation date</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <span>48 comments</span>
+                            <span>by Admin Sam</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/templatemo-script.js"></script>
+</body>
+</html>
