@@ -13,7 +13,9 @@ public interface BlogService {
 
   Collection<Blog> getAll();
 
-  Blog save(Blog post);
+  Blog save(Blog blog);
 
-  void delete(Blog post);
+  void delete(Blog blog);
+
+  Blog update(Long id, Blog blog);
 }
