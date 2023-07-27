@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <form action="@{'/blog/create'}"
+          th:action="@{'/blog/create'}"
+          th:object="${blog}"
+          method="post">
+        <h2>Write new blog post</h2>
+<!--        title-->
+        <div>
+            <label>
+                <div class="alert-red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+                <input type="text" th:field="*{title}" placeholder="Title"/>
+            </label>
+        </div>
+<!--        topics-->
+        <div>
+            <label>Choose a topic:</label>
+            <select th:field="*{topic}">
+                <option th:each="topic : ${topics}" th:value="${topic.id}" th:text="${topic.name}">
+                </option>
+            </select>
+        </div>
+        content
+        <div>
+            <label>
+                <div class="alert-red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Body Error</div>
+                <textarea th:field="*{content}" placeholder="Write something valuable"></textarea>
+            </label>
+        </div>
+        <div class="float-left">
+            <button class="green-btn" type="submit">Publish</button>
+        </div>
+    </form>
+    <br>
+</div>
+
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>
