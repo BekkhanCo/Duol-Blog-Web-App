@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="comments(comments)">
+    <div class="container-fluid">
+
+        <div class="row tm-row">
+            <h2 class="tm-color-primary tm-post-title">Comments</h2>
+            <hr class="tm-hr-primary tm-mb-45">
+            <div class="col-12 col-md-12" th:each="comment : ${comments}">
+                <!--            <div class="comment" th:each="comment : ${comments}">-->
+                <div class="row">
+                    <div class="tm-comment tm-mb-45">
+                        <figure class="tm-comment-figure">
+                            <!--                            <img src="img/comment-1.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">-->
+                            <figcaption class="tm-color-primary text-center">Mark Sonny</figcaption>
+                        </figure>
+                        <div>
+                            <p th:text="${comment.text}">
+                                Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
+                                quis enim feugiat tincidunt et vitae dui. Nullam consectetur
+                                justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus
+                                sapien vel, euismod turpis.
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <form th:disabled="${comment.checked}" method="POST"
+                                      th:action="@{'/comment/{id}/checked'(id=${comment.id})}">
+                                    <button th:disabled="${comment.checked}" type="submit" name="submit" value="value"
+                                            th:classappend="${comment.checked ? '' : 'tm-color-primary'}">Confirm
+                                    </button>
+                                </form>
+                                <form method="POST" th:action="@{'/comment/{id}/delete'(id=${comment.id})}">
+                                    <button type="submit" name="submit" value="value"
+                                            class="tm-color-danger">Delete
+                                    </button>
+                                </form>
+                                <span class="tm-color-primary"
+                                      th:text="${#temporals.format(comment.createdDate, 'yyyy MMMM dd')}">June 14, 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            create new comment-->
+
+        </div>
+    </div>
+
+
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/templatemo-script.js"></script>
+</body>
+</html>
