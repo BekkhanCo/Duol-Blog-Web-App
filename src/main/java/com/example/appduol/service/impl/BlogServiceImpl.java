@@ -9,7 +9,6 @@ import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -32,13 +31,11 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public Blog save(Blog blog) {
-    blog.setCreatedDate(LocalDateTime.now());
-    blog.setCountOfReads(0);
-    blog.setChecked(false);
     return repository.saveAndFlush(blog);
   }
 
   @Override
+//  @Transactional
   public void delete(Blog post) {
     repository.delete(post);
   }
