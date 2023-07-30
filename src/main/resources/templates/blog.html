@@ -6,124 +6,79 @@
 
 <div th:replace="/fragments/header :: header"></div>
 
-<div class="container-fluid">
-    <div class="blog">
-        <div class="row tm-row">
-            <div class="col-12">
-                <hr class="tm-hr-primary tm-mb-55">
-                <img th:src="@{/img/default.png}" alt="Image" class="img-fluid">
+<div class="row container-fluid mt-2 bg-white">
+    <div class="col-lg-9 mt-1 p-5 text-left">
+        <!--        blue line-->
+        <div>
+            <hr class="tm-hr-primary mb-3">
+        </div>
+        <!--        image-->
+        <div class="text-center">
+            <img th:src="@{/img/default.png}" alt="Image" class="img-fluid w-">
+        </div>
+        <!-- blog content -->
+        <div class="mb-4">
+            <!--         title-->
+            <div class="tm-post-title">
+                <h2 class="pt-2 font-weight-bold fs-2 tm-color-primary" th:text="${blog.title}">
+                    Title</h2>
+            </div>
+            <!--                topic and creation date-->
+            <div class="row tm-row pt-2 fs-4">
+                <span class="col-lg-1 tm-color-dark">Topic: </span>
+                <span class="col-lg-6 tm-color-primary" th:text="${blog.topic.name}">Topic</span>
+                <span class="col-lg-5"
+                      th:text="'Published on ' + ${#temporals.format(blog.createdDate, 'yyyy MMMM dd')}">Creation date</span>
+            </div>
+            <!--                content-->
+            <div class="tm-mt-40 " th:utext="${blog.content}"></div>
+            <!--                operation buttons-->
+            <div class="row mt-2 p-2">
+                <form class="col px-5" th:disabled="${blog.checked}" method="POST"
+                      th:action="@{'/blog/{id}/checked'(id=${blog.id})}">
+                    <button th:disabled="${blog.checked}" type="submit" name="submit" value="value"
+                            th:classappend="${blog.checked ? 'btn btn-lg btn-block btn-outline-dark' : 'btn btn-lg btn-block btn-light'}">
+                        Checked
+                    </button>
+                </form>
+                <!-- delete button -->
+                <form class="col px-5" method="POST" th:action="@{'/blog/{id}/delete'(id=${blog.id})}">
+                    <button type="submit" name="submit" value="value" class="btn btn-light btn-lg btn-block">
+                        Delete
+                    </button>
+                </form>
+                <!-- edit button -->
+                <a class="col px-5" href="#">
+                    <button class="btn btn-light btn-lg btn-block" type="button">Edit</button>
+                </a>
             </div>
         </div>
-        <div class="row tm_row">
-            <div class="col-lg-8 tm-post-col">
-                <div class="tm-post-full">
-                    <!--                    blog body-->
-                    <div class="mb-4">
-                        <h2 class="pt-2 tm-color-primary tm-post-title" th:text="${blog.title}">Single Post of Xtra Blog
-                            HTML Template</h2>
-                        <p class="tm-mb-40"
-                           th:text="'Published on ' + ${#temporals.format(blog.createdDate, 'yyyy MMMM dd')}">June 16,
-                            2020 posted by Admin Nat</p>
-                        <div th:text="${blog.content}"></div>
-                        <span class="d-block text-right tm-color-primary" th:text="'Topic: ' + ${blog.topic.name}">Creative . Design . Business</span>
-                    </div>
-                    <!--                       checked button-->
-                    <div class="align-right">
-                        <form th:disabled="${blog.checked}" method="POST"
-                              th:action="@{'/blog/{id}/checked'(id=${blog.id})}">
-                            <button th:disabled="${blog.checked}" type="submit" name="submit" value="value"
-                                    th:classappend="${blog.checked ? '' : 'green-btn'}">Checked
-                            </button>
-                        </form>
-                    </div>
-                    <!--                        delete button-->
-                    <div class="align-right">
-                        <form method="POST" th:action="@{'/blog/{id}/delete'(id=${blog.id})}">
-                            <button type="submit" name="submit" value="value" class="red-btn">Delete</button>
-                        </form>
-                    </div>
-                    <!--                        edit button-->
-                    <div class="align-right">
-                        <a th:href="@{'/editBlog/{id}'(id=${blog.id})}">
-                            <button class="green-btn blue-btn" type="button">Edit</button>
-                        </a>
-                    </div>
-                </div>
-
-                <!--                 Comments-->
-                <!--                <div>-->
-                <!--                    <h2 class="tm-color-primary tm-post-title">Comments</h2>-->
-                <!--                    <hr class="tm-hr-primary tm-mb-45">-->
-                <!--                    <div class="tm-comment tm-mb-45">-->
-                <!--                        <figure class="tm-comment-figure">-->
-                <!--                            <img src="img/comment-1.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">-->
-                <!--                            <figcaption class="tm-color-primary text-center">Mark Sonny</figcaption>-->
-                <!--                        </figure>-->
-                <!--                        <div>-->
-                <!--                            <p>-->
-                <!--                                Praesent aliquam ex vel lectus ornare tritique. Nunc et eros-->
-                <!--                                quis enim feugiat tincidunt et vitae dui. Nullam consectetur-->
-                <!--                                justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus-->
-                <!--                                sapien vel, euismod turpis.-->
-                <!--                            </p>-->
-                <!--                            <div class="d-flex justify-content-between">-->
-                <!--                                <a href="#" class="tm-color-primary">REPLY</a>-->
-                <!--                                <span class="tm-color-primary">June 14, 2020</span>-->
-                <!--                            </div>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                    <div class="tm-comment-reply tm-mb-45">-->
-                <!--                        <hr>-->
-                <!--                        <div class="tm-comment">-->
-                <!--                            <figure class="tm-comment-figure">-->
-                <!--                                <img src="img/comment-2.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">-->
-                <!--                                <figcaption class="tm-color-primary text-center">Jewel Soft</figcaption>-->
-                <!--                            </figure>-->
-                <!--                            <p>-->
-                <!--                                Nunc et eros quis enim feugiat tincidunt et vitae dui.-->
-                <!--                                Nullam consectetur justo ac ex laoreet rhoncus. Nunc-->
-                <!--                                id leo pretium, faucibus sapien vel, euismod turpis.-->
-                <!--                            </p>-->
-                <!--                        </div>-->
-                <!--                        <span class="d-block text-right tm-color-primary">June 21, 2020</span>-->
-                <!--                    </div>-->
-                <!--                    <form action="" class="mb-5 tm-comment-form">-->
-                <!--                        <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>-->
-                <!--                        <div class="mb-4">-->
-                <!--                            <input class="form-control" name="name" type="text">-->
-                <!--                        </div>-->
-                <!--                        <div class="mb-4">-->
-                <!--                            <input class="form-control" name="email" type="text">-->
-                <!--                        </div>-->
-                <!--                        <div class="mb-4">-->
-                <!--                            <textarea class="form-control" name="message" rows="6"></textarea>-->
-                <!--                        </div>-->
-                <!--                        <div class="text-right">-->
-                <!--                            <button class="tm-btn tm-btn-primary tm-btn-small">Submit</button>-->
-                <!--                        </div>-->
-                <!--                    </form>-->
-                <!--                </div>-->
+        <!--        comments section-->
+        <div>
+            <div class="tab-pane" id="contact_02"
+                 th:replace="/fragments/comments :: comments(comments=${checked_comments})">
             </div>
+        </div>
+        <!--        crete new comment-->
+        <div class="align-right text-right float-end">
+            <a th:href="@{'/blog/{id}/comment/create'(id=${blog.id})}">
+                <button class="m-2 btn tm-btn-primary btn-lg btn-block" type="button">Add comment</button>
+            </a>
+        </div>
+        <!--        back to menu-->
+        <div class="float-start mt-5 text-left align-left">
+            <a class="m-1" th:href="@{'/'}">
+                <button class="btn btn-lg btn-outline-secondary" type="button"> << Back to Menu</button>
+            </a>
         </div>
     </div>
-
-    <!--    <div class="comments">-->
-    <!--        <h2>Comments</h2>-->
-    <!--        <div class="comment" th:each="comment : ${blog.comments}">-->
-    <!--            <h5 th:text="'Commented on ' + ${#temporals.format(blog.creationDate, 'yyyy-MM-dd')} + ' by ' + ${comment.user.username}">Comment date and by whom</h5>-->
-    <!--            <p th:text="${comment.body}">Body</p>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    <div class="align-center">-->
-    <!--        <a th:href="@{'/comment/{id}'(id=${blog.id})}">-->
-    <!--            <button class="green-btn" type="button">Comment Blog</button>-->
-    <!--        </a>-->
-    <!--    </div>-->
+    <aside class="col-lg-3">
+        Some Posts
+    </aside>
 </div>
 
+
 <footer th:replace="/fragments/footer :: footer"></footer>
-<script src="js/jquery.min.js"></script>
-<script src="js/templatemo-script.js"></script>
 
 </body>
 </html>

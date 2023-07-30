@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="row container-fluid mt-2 bg-white">
+    <div class="col-lg-9 mt-1 p-2 text-left">
+        <!--        comments section-->
+        <div>
+            <div class="tab-pane" id="contact_02"
+                 th:replace="/fragments/comments :: comments(comments=${unchecked_comments})">
+            </div>
+        </div>
+        <!--        crete new comment-->
+        <div>
+            <form class="mb-5 tm-comment-form"
+                  action="#"
+                  th:action="@{'/blog/{id}/comment/create'(id=${blogId})}"
+                  method="post">
+                <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+                <div class="mb-4">
+                    <input class="form-control" name="comment" type="text">
+                </div>
+                <div class="text-right">
+                    <button class="tm-btn tm-btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="float-start text-left align-left">
+            <a class="col px-5" th:href="@{'/blog/{id}'(id=${blogId})}">
+                <button class="p-2 m-2 btn btn-outline-secondary btn-lg" type="button"> << Back to Blog</button>
+            </a>
+        </div>
+    </div>
+    <aside class="col-lg-3">
+        Some Posts
+    </aside>
+</div>
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</script>
+</body>
+</html>

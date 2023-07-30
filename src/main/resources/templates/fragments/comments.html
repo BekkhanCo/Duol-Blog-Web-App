@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="comments(comments)">
+    <div class="container-fluid">
+        <div>
+            <h2 class="tm-color-primary tm-post-title">Comments</h2>
+            <hr class="tm-hr-primary tm-mb-45">
+        </div>
+        <div class="interior container clearfix">
+                <div class="pt-2 blogBox moreBox" th:each="comment, iterStat : ${comments}"
+                     th:style="${iterStat.index < 5 ? '' : 'display: none;'}">
+                    <div class="row mb-45">
+                        <!--                    comment owner-->
+                        <div class="col-lg-2">
+                            <figure>
+                                <!--                        <img th:src="@{/img/default.png}" alt="Image" class="mb-2 rounded-circle img-thumbnail">-->
+                                <figcaption class="tm-color-primary align-text-middle">Mark Sonny</figcaption>
+                            </figure>
+                        </div>
+                        <!--                    comment content-->
+                        <div class="col-lg-10 justify-content-between">
+                            <!--                    comment text-->
+                            <div>
+                                <p th:text="${comment.text}">
+                                    Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
+                                    quis enim feugiat tincidunt et vitae dui. Nullam consectetur
+                                    justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus
+                                    sapien vel, euismod turpis.
+                                </p>
+                            </div>
+                            <!--                    comment operation and creation date-->
+                            <div class="row align-baseline">
+                                <form class="col" th:disabled="${comment.checked}" method="POST"
+                                      th:action="@{'/comment/{id}/checked'(id=${comment.id})}">
+                                    <button th:disabled="${comment.checked}" type="submit" name="submit" value="value"
+                                            th:classappend="${comment.checked ? 'invisible' : 'btn btn-light'}">Publish
+                                    </button>
+                                </form>
+                                <form class="col" method="POST" th:action="@{'/comment/{id}/delete'(id=${comment.id})}">
+                                    <button type="submit" name="submit" value="value"
+                                            class="btn btn-light">Delete
+                                    </button>
+                                </form>
+                                <span class="col tm-color-primary"
+                                      th:text="${#temporals.format(comment.createdDate, 'yyyy MMMM dd')}">June 14, 2020</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="tm-hr-d  ark mb-5">
+                </div>
+                <div class="text-right" id="loadMore" th:style="${#lists.size(comments) > 5 ? '' : 'display: none;'}">
+                    <a href="#">Show all comments</a>
+                </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/templatemo-script.js"></script>
+</body>
+</html>
